@@ -1,0 +1,152 @@
+1.using System;
+
+class Program
+{
+    static void Main()
+    {
+        int[] numbers = { 7, 14, 25 }; // your three integers here
+        int lastDigit = numbers.Length % 10;
+        int lowerBound = 1;
+        int upperBound = 10 + lastDigit;
+
+        Console.WriteLine($"Numbers in the interval [{lowerBound},{upperBound}]:");
+
+        foreach (int num in numbers)
+        {
+            if (num >= lowerBound && num <= upperBound)
+            {
+                Console.WriteLine(num);
+            }
+        }
+    }
+}
+2.using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("Enter three sides of the triangle:");
+
+        double side1, side2, side3;
+        if (double.TryParse(Console.ReadLine(), out side1) &&
+            double.TryParse(Console.ReadLine(), out side2) &&
+            double.TryParse(Console.ReadLine(), out side3))
+        {
+            if (IsValidTriangle(side1, side2, side3))
+            {
+                double perimeter = side1 + side2 + side3;
+                double s = perimeter / 2;
+                double area = Math.Sqrt(s * (s - side1) * (s - side2) * (s - side3));
+
+                Console.WriteLine($"Perimeter: {perimeter}");
+                Console.WriteLine($"Area: {area}");
+
+                Console.WriteLine($"Type of triangle: {ClassifyTriangle(side1, side2, side3)}");
+            }
+            else
+            {
+                Console.WriteLine("Invalid sides for a triangle.");
+            }
+        }
+        else
+        {
+            Console.WriteLine("Invalid input. Please enter valid numeric values.");
+        }
+    }
+
+    static bool IsValidTriangle(double a, double b, double c)
+    {
+        return a + b > c && a + c > b && b + c > a;
+    }
+
+    static string ClassifyTriangle(double a, double b, double c)
+    {
+        if (a == b && b == c)
+            return "Equilateral";
+        else if (a == b || b == c || a == c)
+            return "Isosceles";
+        else
+            return "Scalene";
+    }
+}
+3.using System;
+
+class Program
+{
+    static void Main()
+    {
+        int[] array = { 5, 12, 8, 3, 7, 10 }; // your array here
+        int lastDigit = array.Length % 10;
+
+        Console.WriteLine($"Array: [{string.Join(", ", array)}]");
+        Console.WriteLine($"Minimum value: {MinValue(array)}");
+        Console.WriteLine($"Maximum value: {MaxValue(array)}");
+    }
+
+    static int MinValue(int[] arr)
+    {
+        int min = arr[0];
+        foreach (int num in arr)
+        {
+            if (num < min)
+                min = num;
+        }
+        return min;
+    }
+
+    static int MaxValue(int[] arr)
+    {
+        int max = arr[0];
+        foreach (int num in arr)
+        {
+            if (num > max)
+                max = num;
+        }
+        return max;
+    }
+}
+4.using System;
+
+class Program
+{
+    static void Main()
+    {
+        int[] arrayX = { -3, 8, -5, 12, 0, -7 }; // your array here
+        int lastDigit = arrayX.Length % 10;
+
+        Console.WriteLine($"Array X: [{string.Join(", ", arrayX)}]");
+
+        Console.Write("Enter the value of M: ");
+        int m;
+        if (int.TryParse(Console.ReadLine(), out m))
+        {
+            int[] arrayY = FilterArray(arrayX, m);
+
+            Console.WriteLine($"Number M: {m}");
+            Console.WriteLine($"Array Y: [{string.Join(", ", arrayY)}]");
+        }
+        else
+        {
+            Console.WriteLine("Invalid input for M. Please enter a valid integer.");
+        }
+    }
+
+    static int[] FilterArray(int[] arr, int m)
+    {
+        int[] result = new int[arr.Length];
+        int count = 0;
+
+        foreach (int num in arr)
+        {
+            if (Math.Abs(num) > m)
+            {
+                result[count] = num;
+                count++;
+            }
+        }
+
+        Array.Resize(ref result, count);
+        return result;
+    }
+}
